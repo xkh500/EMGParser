@@ -19,3 +19,15 @@ Win32*/
 *.dll
 *.lib
 *.pdb
+
+# —— LabVIEW —— 
+# LabVIEW 编译或打包后的库和容器
+*.lvlibp
+*.llb
+
+# LabVIEW 元数据文件
+*.aliases
+*.lvlps
+
+# LabVIEW 缓存文件夹
+.cache/
