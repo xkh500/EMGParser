@@ -1,0 +1,21 @@
+# Visual Studio
+.vs/
+*.vcxproj.user
+*.suo
+*.user
+*.ncb
+*.opensdf
+*.sdf
+*.ipch
+Debug*/
+Release*/
+x64*/
+Win32*/
+*.log
+
+# Build artifacts
+*.obj
+*.exe
+*.dll
+*.lib
+*.pdb
