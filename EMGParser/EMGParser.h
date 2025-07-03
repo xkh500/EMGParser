@@ -6,7 +6,7 @@
 #define EMGPARSER_API __declspec(dllimport)
 #endif
 
-#include <stdint.h>
+#include <cstdint>
 
 extern "C" {
 
@@ -16,19 +16,21 @@ extern "C" {
     // 逐字节调用；返回 true 表示接收到一整帧并已完成解析
     EMGPARSER_API bool EMGParser_ParseByte(uint8_t b);
 
-    // 当 ParseByte 返回 true 后，调用此函数拷贝出最新一帧数据
-    // 参数依次为：
-    //   acc: 长度 3 的整型数组 (3×24-bit 原始加速度 LSB)
-    //   emgRaw: 指向肌电原始值 (24-bit signed LSB)
-    //   spo2: 长度 2 的整型数组 (2×24-bit 原始血氧信号 LSB)
-    //   temperature: 指向温度原始值 (16-bit signed LSB)
-    //   mag: 长度 3 的整型数组 (3×16-bit 原始磁力计 LSB)
-    EMGPARSER_API bool EMGParser_GetData(
-        int   acc[3],
-        int* emgRaw,
-        int   spo2[2],
-        int* temperature,
-        int   mag[3]
+    /**
+     * 获取已换算后的传感器数据（单位：g、V、°C、µT 等）
+     * 必须在 ParseByte 返回 true 后调用，获取对应帧数据
+     * @param acc         [out] 加速度数组，单位 g，长度 3
+     * @param emg         [out] 肌电数据，单位 V
+     * @param spo2        [out] 血氧原始值，长度 2
+     * @param temperature [out] 温度，单位 °C
+     * @param mag         [out] 磁力计数据，单位 µT，已去零漂，长度 3
+     */
+    EMGPARSER_API void EMGParser_GetData(
+        float acc[3],
+        float* emg,
+        float spo2[2],
+        float* temperature,
+        float mag[3]
     );
 
-} // extern "C"
+}
